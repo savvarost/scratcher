@@ -3,28 +3,119 @@
   "displayName": "scratcher",
   "description": "todo",
   "version": "0.0.1",
+  "publisher": "scratcher", 
   "engines": {
     "vscode": "^1.91.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:scratcher.createProjectScratchFile",
+    "onCommand:scratcher.createTotalScratchFile",
+    "onCommand:extension.showDirectory",
+    "onCommand:directoryViewer.refreshEntry"
+  ],
   "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/savvarost/scratcher.git"
+  },
   "contributes": {
     "commands": [
-        {
-            "command": "extension.showDirectory",
-            "title": "Show Directory"
-        }
+      {
+        "command": "scratcher.createProjectScratchFile",
+        "title": "Create Project Scratch File"
+      },
+      {
+        "command": "scratcher.createTotalScratchFile",
+        "title": "Create Total Scratch File"
+      },
+      {
+        "command": "extension.showDirectory",
+        "title": "Show Directory"
+      },
+      {
+        "command": "directoryViewer.refreshEntry",
+        "title": "Refresh Directory Viewer"
+      },
+      {
+        "command": "extension.createFile",
+        "title": "Create File"
+      },
+      {
+        "command": "extension.deleteFile",
+        "title": "Delete File"
+      },
+      {
+        "command": "extension.renameFile",
+        "title": "Rename File"
+      },
+      {
+        "command": "extension.moveFile",
+        "title": "Move File"
+      },
+      {
+        "command": "extension.copyFile",
+        "title": "Copy File"
+      },
+      {
+        "command": "extension.cutFile",
+        "title": "Cut File"
+      }
     ],
+    "configuration": {
+      "type": "object",
+      "title": "Scratcher Configuration",
+      "properties": {
+        "scratcher.directory": {
+          "type": "string",
+          "default": "~/Documents/Scratcher",
+          "description": "Directory where scratch files are stored."
+        }
+      }
+    },
     "views": {
-        "explorer": [
-            {
-                "id": "directoryViewer",
-                "name": "Directory Viewer"
-            }
-        ]
+      "explorer": [
+        {
+          "id": "directoryViewer",
+          "name": "Scratcher"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "extension.createFile",
+          "when": "view == directoryViewer && viewItem == folder",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.deleteFile",
+          "when": "view == directoryViewer && viewItem == file",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.renameFile",
+          "when": "view == directoryViewer && viewItem == file",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.moveFile",
+          "when": "view == directoryViewer && viewItem == file",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.copyFile",
+          "when": "view == directoryViewer && viewItem == file",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.cutFile",
+          "when": "view == directoryViewer && viewItem == file",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
@@ -38,18 +129,21 @@
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
+  "dependencies": {
+    "language-map": "^1.5.0"
+  },
   "devDependencies": {
-    "@types/vscode": "^1.91.0",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
-    "@typescript-eslint/eslint-plugin": "^7.14.1",
-    "@typescript-eslint/parser": "^7.11.0",
-    "eslint": "^8.57.0",
-    "typescript": "^5.4.5",
+    "@types/vscode": "^1.91.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^9.8.0",
     "ts-loader": "^9.5.1",
-    "webpack": "^5.92.1",
-    "webpack-cli": "^5.1.4",
-    "@vscode/test-cli": "^0.0.9",
-    "@vscode/test-electron": "^2.4.0"
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   }
 }
